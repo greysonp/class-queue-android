@@ -19,7 +19,7 @@
             android:orientation="vertical"
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
-            android:layout_toLeftOf="@+id/remove_btn">
+            android:layout_toLeftOf="@+id/done_btn">
 
             <TextView
                 android:id="@+id/computer_number"
@@ -36,7 +36,7 @@
 
         <!-- Remove Button -->
         <Button
-            android:id="@+id/remove_btn"
+            android:id="@+id/done_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Answered"

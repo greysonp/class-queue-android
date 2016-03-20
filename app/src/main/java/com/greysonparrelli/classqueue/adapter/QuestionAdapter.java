@@ -5,8 +5,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
+import com.greysonparrelli.classqueue.FirebaseManager;
 import com.greysonparrelli.classqueue.R;
 import com.greysonparrelli.classqueue.models.Question;
 
@@ -36,10 +38,18 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Questi
     }
 
     @Override
+    public void onViewRecycled(QuestionViewHolder holder) {
+        super.onViewRecycled(holder);
+        holder.doneButton.setOnClickListener(null);
+    }
+
+    @Override
     public void onBindViewHolder(QuestionViewHolder holder, int position) {
         Question question = mData.get(position);
         holder.computerNumber.setText(String.format(mAppContext.getString(R.string.computer_number), question.getComputerNumber()));
         holder.time.setText(generateTimeString(question.getTime()));
+        holder.doneButton.setTag(question);
+        holder.doneButton.setOnClickListener(mDoneButtonClickListener);
     }
 
     @Override
@@ -61,17 +71,25 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Questi
         }
     }
 
-
+    private View.OnClickListener mDoneButtonClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Question question = (Question) v.getTag();
+            FirebaseManager.removeQuestion(question.getKey());
+        }
+    };
 
     public static class QuestionViewHolder extends RecyclerView.ViewHolder {
 
         public final TextView computerNumber;
         public final TextView time;
+        public final Button doneButton;
 
         public QuestionViewHolder(View itemView) {
             super(itemView);
             computerNumber = (TextView) itemView.findViewById(R.id.computer_number);
             time = (TextView) itemView.findViewById(R.id.time);
+            doneButton = (Button) itemView.findViewById(R.id.done_btn);
         }
     }
 }

@@ -23,14 +23,6 @@ public class MainActivity extends AppCompatActivity {
     private QuestionAdapter mQuestionAdapter;
     private Timer mTimer;
 
-    private BroadcastReceiver mTimeTickReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            if (Intent.ACTION_TIME_TICK.equals(intent.getAction())) {
-                mQuestionAdapter.notifyDataSetChanged();
-            }
-        }
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,13 +59,11 @@ public class MainActivity extends AppCompatActivity {
                 });
             }
         }, TimeUnit.SECONDS.toMillis(1), TimeUnit.SECONDS.toMillis(1));
-//        registerReceiver(mTimeTickReceiver, new IntentFilter(Intent.ACTION_TIME_TICK));
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-//        unregisterReceiver(mTimeTickReceiver);
         mTimer.cancel();
     }
 }

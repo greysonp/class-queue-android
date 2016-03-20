@@ -31,10 +31,13 @@ public class FirebaseManager {
         });
     }
 
-    private static Firebase getClient() {
-        return new Firebase("https://class-queue.firebaseio.com/");
+    public static void removeQuestion(String key) {
+        getClient().child("questions").child(key).removeValue();
     }
 
+    public static Firebase getClient() {
+        return new Firebase("https://class-queue.firebaseio.com/");
+    }
 
     public interface IOnQuestionsChangedListener {
         void onQuestionsChanged(List<Question> questions);
