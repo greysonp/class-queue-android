@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Class Queue</string>
+    <string name="computer_number">Computer %s</string>
 </resources>
